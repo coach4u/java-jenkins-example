@@ -89,7 +89,7 @@
                     required
                 />
  
-                <label for="email">EmailID:</label>
+                <label for="email">Email:</label>
                 <input
                     type="email"
                     id="email"
