@@ -16,15 +16,6 @@ pipeline {
 	       sh 'mvn package'
 	    }
       }
-/*   stage('Build docker image') {
-          steps {
-               script {         
-                 def customImage = docker.build('coachrhca/webappqa',)
-                 docker.withRegistry('https://registry.hub.docker.com', 'dockerid') {
-                 customImage.push("${env.BUILD_NUMBER}")
-           }
-    }
- } */
 }
 }
 }
