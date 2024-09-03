@@ -24,8 +24,17 @@ pipeline {
                  customImage.push("${env.BUILD_NUMBER}")
            }
     }
- } 
+ }
+  stages {
+            stage('k8s'){
+              steps{
+                   sh 'kubectl create -f /tmp/web.yml --kubeconfig /tmp/config'	  
+           }
+          }
+         }
+      }
+} 
 }
-}
-}
+}	
+
 
