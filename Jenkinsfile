@@ -25,6 +25,7 @@ pipeline {
            }
     }
  }
+}
   stages {
             stage('k8s'){
               steps{
@@ -32,9 +33,9 @@ pipeline {
            }
           }
          }
-      }
+      
 } 
 }
-}	
+
 
 
