@@ -1,40 +1,34 @@
 pipeline {
-   environment {
-   registry = "coachrhca/dockertestimage"
-    registryCredential = ''
-  }
-  agent any
+    agent any
+
     stages {
-      stage('SCM') {
-        steps {
-          git credentialsId: 'git', url: 'https://github.com/coach4u/java-jenkins-example.git'
+        stage('SCM') {
+            steps {
+                git credentialsId: 'git', url: 'https://github.com/coach4u/java-jenkins-example.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    def customImage = docker.build('coachrhca/webappqa',)
+                    docker.withRegistry('https://registry.hub.docker.com', 'dockerid') {
+                        customImage.push("${env.BUILD_NUMBER}")
+                    }
+                }
+            }
+        }
+
+        stage('Deploy to Kubernetes') {
+            steps {
+                sh 'kubectl create -f /tmp/web.yml --kubeconfig /tmp/config'
+            }
         }
     }
-	  stage('build') {
-	    steps {
-	       sh 'mvn clean'
-	       sh 'mvn package'
-	    }
-      }
-  stage('Build docker image') {
-          steps {
-              script {         
-                def customImage = docker.build('coachrhca/webappqa',)
-                docker.withRegistry('https://registry.hub.docker.com', 'dockerid') {
-                 customImage.push("${env.BUILD_NUMBER}")
-           }
-    }
- }
 }
-  stages {
-            stage('k8s'){
-              steps{
-                   sh 'kubectl create -f /tmp/web.yml --kubeconfig /tmp/config'	  
-           }
-          }
-         }
-      } 
-
-
-
-
