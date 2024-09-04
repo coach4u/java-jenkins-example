@@ -17,7 +17,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    def customImage = docker.build('coachrhca/webappqa',)
+                    def customImage = docker.build('coachrhca/webapps',)
                     docker.withRegistry('https://registry.hub.docker.com', 'dockerid') {
                         customImage.push("${env.BUILD_NUMBER}")
                     }
