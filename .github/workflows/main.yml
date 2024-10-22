@@ -20,21 +20,6 @@ jobs:
      with:
        name: application-war
        path: target/*.war
-   - name: Deploy war to S3
-     run: aws s3 cp target/*.war s3://githubaction-bucket0987/ --region us-east-1
-   
-
-   - name: Log in to Amazon ECR
-     uses: aws-actions/amazon-ecr-login@v1
-
-   - name: Build Docker image
-     run: docker build -t app1:latest .
-
-   - name: Tag Docker image
-     run: docker tag app1:latest 058264393529.dkr.ecr.us-east-2.amazonaws.com/app1:latest
-
-   - name: Push Docker image to ECR
-      run: docker push 058264393529.dkr.ecr.us-east-2.amazonaws.com/app1:latest
 
    - name: Configure AWS credentials
      uses: aws-actions/configure-aws-credentials@v2
@@ -42,6 +27,25 @@ jobs:
        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
        aws-region: us-east-1  
+   - name: Deploy war to S3
+     run: aws s3 cp target/*.war s3://githubaction-bucket0987/ --region us-east-1
+   
+   
+   - name: Log in to Amazon ECR
+     run: |
+        aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 058264393529.dkr.ecr.us-east-2.amazonaws.com
+
+
+   - name: Build Docker image
+     run: docker build -t app1:latest .
+
+   - name: Tag Docker image
+      run: docker tag my-app:latest 058264393529.dkr.ecr.us-east-2.amazonaws.com/my-app-repo:latest
+
+   - name: Push Docker image to ECR
+      run: docker push 058264393529.dkr.ecr.us-east-2.amazonaws.com/my-app-repo:latest
+
+   
      
         
         
