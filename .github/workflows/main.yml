@@ -43,7 +43,7 @@ jobs:
      run: docker tag my-app:latest 058264393529.dkr.ecr.us-east-2.amazonaws.com/my-app-repo:latest
 
    - name: Push Docker image to ECR
-      run: docker push 058264393529.dkr.ecr.us-east-2.amazonaws.com/my-app-repo:latest
+     run: docker push 058264393529.dkr.ecr.us-east-2.amazonaws.com/my-app-repo:latest
 
    
      
