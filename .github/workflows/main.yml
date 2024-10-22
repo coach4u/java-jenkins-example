@@ -28,21 +28,21 @@ jobs:
        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
        aws-region: us-east-1  
    - name: Deploy war to S3
-     run: aws s3 cp target/*.war s3://githubaction-bucket0987/ --region us-east-1
+     run: aws s3 cp target/*.war s3://github-bucket09876/ --region us-east-1
      
    - name: Log in to Amazon ECR
      run: |
-        aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 058264393529.dkr.ecr.us-east-2.amazonaws.com
+        aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 851725517215.dkr.ecr.us-east-1.amazonaws.com
 
     
    - name: Build Docker image
-     run: docker build -t test .
+     run: docker build -t repo/testapp .
 
    - name: Tag Docker image
-     run: docker tag test:latest 058264393529.dkr.ecr.us-east-2.amazonaws.com/test:latest
+     run: docker tag repo/testapp:latest 851725517215.dkr.ecr.us-east-1.amazonaws.com/repo/testapp:latest
 
    - name: Push Docker image to ECR
-     run: docker push 058264393529.dkr.ecr.us-east-2.amazonaws.com/test:latest
+     run: docker push 851725517215.dkr.ecr.us-east-1.amazonaws.com/repo/testapp:latest
    
    
         
