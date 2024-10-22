@@ -29,25 +29,22 @@ jobs:
        aws-region: us-east-1  
    - name: Deploy war to S3
      run: aws s3 cp target/*.war s3://githubaction-bucket0987/ --region us-east-1
-   
-   
+     
    - name: Log in to Amazon ECR
-     run: |
+      run: |
         aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 058264393529.dkr.ecr.us-east-2.amazonaws.com
 
-
+    
    - name: Build Docker image
-     run: docker build -t app1:latest .
+      run: docker build -t my-app:latest .
 
    - name: Tag Docker image
      run: docker tag my-app:latest 058264393529.dkr.ecr.us-east-2.amazonaws.com/my-app-repo:latest
 
    - name: Push Docker image to ECR
-     run: docker push 058264393529.dkr.ecr.us-east-2.amazonaws.com/my-app-repo:latest
-
+      run: docker push 058264393529.dkr.ecr.us-east-2.amazonaws.com/my-app-repo:latest
    
-     
-        
+   
         
 
      
