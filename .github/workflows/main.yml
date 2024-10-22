@@ -31,7 +31,7 @@ jobs:
      run: aws s3 cp target/*.war s3://githubaction-bucket0987/ --region us-east-1
      
    - name: Log in to Amazon ECR
-      run: |
+     run: |
         aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 058264393529.dkr.ecr.us-east-2.amazonaws.com
 
     
