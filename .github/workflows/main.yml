@@ -46,7 +46,7 @@ jobs:
     # Authenticate kubectl with EKS
    - name: Setup kubectl for EKS
      run: |
-        aws eks --region us-east-1 update-kubeconfig --name my-eks-cluster
+        aws eks --region us-east-1 update-kubeconfig --name demo-eks
 
     # Deploy to EKS
    - name: Deploy to EKS
