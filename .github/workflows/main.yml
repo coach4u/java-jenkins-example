@@ -12,10 +12,15 @@ jobs:
      with:
         distribution: 'temurin'
         java-version: '11'
-   - name: testing the code
-     run: mvn checkstyle:checkstyle
+   - name: Build and Run Tests
+     run: mvn clean test checkstyle:checkstyle
+     continue-on-error: true # Ensures reports are collected even if there are test failures
+
+   - name: List target directory contents
+     run: ls -al target
+
    - name: Archive Test and Checkstyle Reports
-     if: always()  # Ensure this step runs even if the build fails
+     if: always()  # This step will always run, even if previous steps fail
      uses: actions/upload-artifact@v3
      with:
         name: reports
