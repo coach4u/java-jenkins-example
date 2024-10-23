@@ -16,8 +16,8 @@ jobs:
      run: mvn clean test checkstyle:checkstyle
      continue-on-error: true # Ensures reports are collected even if there are test failures
 
-   - name: List target directory contents
-     run: ls -al target
+#   - name: List target directory contents
+ #    run: ls -al target
 
    - name: Archive Test and Checkstyle Reports
      if: always()  # This step will always run, even if previous steps fail
