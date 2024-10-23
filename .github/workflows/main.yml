@@ -42,7 +42,7 @@ jobs:
      run: docker tag repo/testapp:latest 767397786711.dkr.ecr.us-east-1.amazonaws.com/repo/testapp:latest
 
    - name: Push Docker image to ECR
-     run: docker tag repo/testapp:latest 767397786711.dkr.ecr.us-east-1.amazonaws.com/repo/testapp:latest
+     run: docker push 767397786711.dkr.ecr.us-east-1.amazonaws.com/repo/testapp:latest
     # Authenticate kubectl with EKS
    - name: Setup kubectl for EKS
      run: |
