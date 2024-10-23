@@ -39,7 +39,7 @@ jobs:
      run: docker build -t repo/testapp .
 
    - name: Tag Docker image
-     run: docker tag repo/testapp:latest 851725517215.dkr.ecr.us-east-1.amazonaws.com/repo/testapp:latest
+     run: docker tag repo/testapp:latest 767397786711.dkr.ecr.us-east-1.amazonaws.com/repo/testapp:latest
 
    - name: Push Docker image to ECR
      run: docker tag repo/testapp:latest 767397786711.dkr.ecr.us-east-1.amazonaws.com/repo/testapp:latest
