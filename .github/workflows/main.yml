@@ -13,7 +13,15 @@ jobs:
         distribution: 'temurin'
         java-version: '11'
    - name: testing the code
-     run: mvn test
-     
+     run: mvn checkstyle:checkstyle
+   - name: Archive Test and Checkstyle Reports
+     if: always()  # Ensure this step runs even if the build fails
+     uses: actions/upload-artifact@v3
+      with:
+        name: reports
+        path: |
+          target/surefire-reports
+          target/checkstyle-result.xml
+   
    - name: Build with Maven
      run: mvn clean package -DskipTests
