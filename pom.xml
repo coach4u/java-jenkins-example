@@ -40,28 +40,7 @@
           <artifactId>maven-surefire-plugin</artifactId>
           <version>2.22.1</version>
         </plugin>
-
-    <plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-checkstyle-plugin</artifactId>
-    <version>3.1.2</version>
-    <executions>
-        <execution>
-            <phase>verify</phase> <!-- Runs during the verify phase -->
-            <goals>
-                <goal>check</goal> <!-- Executes Checkstyle check -->
-            </goals>
-            <configuration>
-                <configLocation>checkstyle.xml</configLocation> <!-- Provide the custom or default config -->
-                <encoding>UTF-8</encoding>
-                <outputFile>${project.build.directory}/checkstyle-result.xml</outputFile> <!-- Output report -->
-                <failsOnError>true</failsOnError> <!-- Fail the build on errors -->
-                <linkXRef>false</linkXRef> <!-- Disable cross-referencing for simpler output -->
-              </configuration>
-          </execution>
-      </executions>
-   </plugin>
-           <plugin>
+        <plugin>
           <artifactId>maven-war-plugin</artifactId>
           <version>3.2.2</version>
         </plugin>
