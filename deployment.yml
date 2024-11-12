@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: testapp-container
-        image: 767397786711.dkr.ecr.us-east-1.amazonaws.com/repo/testapp:latest
+        image: 767398023615.dkr.ecr.us-east-1.amazonaws.com/repo/testapp:latest
         ports:
         - containerPort: 8080
 ---
