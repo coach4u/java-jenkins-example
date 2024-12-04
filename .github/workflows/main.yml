@@ -34,16 +34,16 @@ jobs:
      
    - name: Log in to Amazon ECR
      run: |
-       aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 767398023615.dkr.ecr.us-east-1.amazonaws.com
+      aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 637423287485.dkr.ecr.us-east-1.amazonaws.com
 
    - name: Build Docker image
      run: docker build -t repo/testapp .
 
    - name: Tag Docker image
-     run: docker tag repo/testapp:latest 767398023615.dkr.ecr.us-east-1.amazonaws.com/repo/testapp:latest
+     run: docker tag repo/testapp:latest 637423287485.dkr.ecr.us-east-1.amazonaws.com/repo/testapp:latest
 
    - name: Push Docker image to ECR
-     run: docker push 767398023615.dkr.ecr.us-east-1.amazonaws.com/repo/testapp:latest
+     run: docker push 637423287485.dkr.ecr.us-east-1.amazonaws.com/repo/testapp:latest
    
     # Authenticate kubectl with EKS
    - name: Setup kubectl for EKS
