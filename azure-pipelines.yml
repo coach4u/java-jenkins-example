@@ -8,7 +8,7 @@ trigger:
 - master
 
 pool:
-  name: vm1
+  name: Default
 
 steps:
 - task: Maven@3
