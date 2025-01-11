@@ -12,11 +12,6 @@ pool:
   name: Default
 
 steps:
-- task: JavaToolInstaller@1
-  inputs:
-    versionSpec: '8'
-    jdkArchitectureOption: 'x64'
-    jdkSourceOption: 'PreInstalled'
 
 - task: Maven@3
   inputs:
