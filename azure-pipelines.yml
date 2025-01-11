@@ -1,4 +1,5 @@
 # Maven
+
 # Build your Java project and run tests with Apache Maven.
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
@@ -11,10 +12,12 @@ pool:
   name: Default
 
 steps:
-- task: UseJavaVersion@1
+- task: JavaToolInstaller@1
   inputs:
-    versionSpec: '1.8'
-    jdkArchitecture: 'x64'
+    versionSpec: '8'
+    jdkArchitectureOption: 'x64'
+    jdkSourceOption: 'PreInstalled'
+
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
