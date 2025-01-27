@@ -20,3 +20,21 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
+    allowBrokenSymlinks: 
+    
+  - task: CopyFiles@2
+
+  displayName: 'Copy Build Artifact to Staging Directory'
+  inputs:
+    SourceFolder: '$(System.DefaultWorkingDirectory)/target'
+    Contents: '*.jar' # Use '*.war' if building a WAR file
+    TargetFolder: '$(buildDir)'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact to Azure DevOps'
+  inputs:
+    PathtoPublish: '$(buildDir)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
+
+
