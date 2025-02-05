@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         AWS_REGION = 'us-east-1' 
-        AWS_CREDENTIALS_ID = 'aws-creds' 
+        AWS_CREDENTIALS_ID = 'awscreds' 
         EKS_CLUSTER_NAME = 'demo-eks.us-east-1.eksctl.io'
     }
 
@@ -33,7 +33,7 @@ pipeline {
 
         stage('Update kubeconfig for EKS') {
             steps { 
-             withCredentials([usernamePassword(credentialsId: 'aws-creds', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+             withCredentials([usernamePassword(credentialsId: 'awscreds', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
                     sh '''
                     export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
                     export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
