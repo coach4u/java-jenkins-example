@@ -31,18 +31,18 @@ pipeline {
             }
         }
 
-        stage('Update kubeconfig for EKS') {
-            steps { 
-             withAWS(credentials: "${AWS_CREDENTIALS_ID}", region: "${AWS_REGION}") {
-                    sh '''
-                    export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
-                    export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
-                    aws eks --region $AWS_REGION update-kubeconfig --name $EKS_CLUSTER_NAME
-                    kubectl config view
-                    '''
-                }
-            }
-        }
+#        stage('Update kubeconfig for EKS') {
+#            steps { 
+#             withAWS(credentials: "${AWS_CREDENTIALS_ID}", region: "${AWS_REGION}") {
+#                    sh '''
+#                    export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+#                    export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+#                    aws eks --region $AWS_REGION update-kubeconfig --name $EKS_CLUSTER_NAME
+#                    kubectl config view
+#                    '''
+#                }
+#            }
+#        }
     
 
 
