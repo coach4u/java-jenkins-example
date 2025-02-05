@@ -3,6 +3,7 @@ pipeline {
     environment {
         AWS_REGION = 'us-east-1' 
         AWS_CREDENTIALS_ID = 'aws-cred' 
+    }
 
     stages {
         stage('SCM') {
@@ -39,7 +40,7 @@ pipeline {
                 }
             }
         }
-    }
+    
 
 
         stage('Deploy to Kubernetes') {
