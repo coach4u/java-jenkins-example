@@ -3,7 +3,7 @@ pipeline {
     environment {
         AWS_REGION = 'us-east-1' 
         AWS_CREDENTIALS_ID = 'awscreds' 
-        EKS_CLUSTER_NAME = 'demo-eks.us-east-1.eksctl.io'
+        EKS_CLUSTER_NAME = 'demo-eks'
     }
 
     stages {
