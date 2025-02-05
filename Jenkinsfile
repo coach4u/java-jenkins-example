@@ -32,6 +32,7 @@ pipeline {
         }
 
         stage('Update kubeconfig for EKS') {
+            step{ 
              withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: AWS_CREDENTIALS_ID]]) {
                     sh '''
                     export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
