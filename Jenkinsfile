@@ -3,6 +3,7 @@ pipeline {
     environment {
         AWS_REGION = 'us-east-1' 
         AWS_CREDENTIALS_ID = 'aws-cred' 
+        EKS_CLUSTER_NAME = 'demo-eks.us-east-1.eksctl.io'
     }
 
     stages {
@@ -31,10 +32,11 @@ pipeline {
         }
 
         stage('Update kubeconfig for EKS') {
-            steps {
-                withAWS(credentials: AWS_CREDENTIALS_ID, region: AWS_REGION) {
+             withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: AWS_CREDENTIALS_ID]]) {
                     sh '''
-                    aws eks --region $AWS_REGION update-kubeconfig --name demo-eks.us-east-1.eksctl.io
+                    export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+                    export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+                    aws eks --region $AWS_REGION update-kubeconfig --name $EKS_CLUSTER_NAME
                     kubectl config view
                     '''
                 }
