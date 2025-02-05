@@ -28,7 +28,7 @@ pipeline {
 
         stage('Deploy to Kubernetes') {
             steps {
-                sh 'kubectl create -f /tmp/web.yml --kubeconfig /tmp/config'
+                sh 'kubectl apply -f /tmp/web.yml --kubeconfig /tmp/config'
             }
         }
     }
