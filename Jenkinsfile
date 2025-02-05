@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         AWS_REGION = 'us-east-1' 
-        AWS_CREDENTIALS_ID = 'aws-cred' 
+        AWS_CREDENTIALS_ID = 'aws-creds' 
         EKS_CLUSTER_NAME = 'demo-eks.us-east-1.eksctl.io'
     }
 
