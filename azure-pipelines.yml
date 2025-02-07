@@ -3,7 +3,7 @@ trigger:
 
 pool:
  # vmimage: ubuntu-latest
-   name: default
+   name: Default
 
 steps:
 - task: Maven@3
