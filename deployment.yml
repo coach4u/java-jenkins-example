@@ -17,7 +17,7 @@ spec:
       containers:
       - name: testapp-container
      #   image: 637423287485.dkr.ecr.us-east-1.amazonaws.com/repo/testapp:latest
-        image: cherrycontainerregistry/
+        image: cherrycontainerregistry/webapp:latest
         ports:
         - containerPort: 8080
 ---
