@@ -17,8 +17,12 @@ phases:
       - echo "Building the application..."
       - mvn package
       - echo "Building Docker image..."
-      - docker build -t webapp .
+      - docker build -t repo/webapp .
+      - echo "Listing Docker images after build..."
+      - docker images   # Debugging step to check if image exists
+      - echo "Tagging Docker image..."
       - docker tag repo/webapp:latest 590183778640.dkr.ecr.us-east-1.amazonaws.com/repo/webapp:latest
+
 
   post_build:
     commands:
