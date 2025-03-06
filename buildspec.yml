@@ -9,7 +9,7 @@ phases:
   install:
     runtime-versions:
       java: corretto17  # Ensure Java is available for Maven
-      docker: 20
+      
     commands:
       - echo "Installing dependencies..."
       - yum install -y aws-cli jq maven
