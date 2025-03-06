@@ -2,14 +2,14 @@ version: 0.2
 
 env:
   variables:
-    AWS_REGION: "us-east-1"  # Change this to your AWS region
+    AWS_REGION: "us-east-1"
     ECR_REPO: "654654199927.dkr.ecr.us-east-1.amazonaws.com/repo/webapp"
 
 phases:
   install:
     runtime-versions:
-      java: corretto17  # Ensure Java is available for Maven
-      
+      java: corretto17
+      docker: 20
     commands:
       - echo "Installing dependencies..."
       - yum install -y aws-cli jq maven
@@ -19,13 +19,12 @@ phases:
       - echo "Running Maven build..."
       - mvn clean package
       - echo "Logging in to AWS ECR..."
-      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 654654199927.dkr.ecr.us-east-1.amazonaws.com
+      - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REPO
 
   build:
     commands:
-      - echo "Copying WAR file to target directory..."
-      - mkdir -p target
-      - cp target/*.war target/demo.war
+      - echo "Checking if target/demo.war exists before copying..."
+      - if [ ! -f target/demo.war ]; then cp target/*.war target/demo.war; fi
       - echo "Building Docker image..."
       - docker build -t demo-repo .
       - docker tag demo-repo:latest $ECR_REPO:latest
@@ -35,7 +34,6 @@ phases:
       - echo "Pushing Docker image to ECR..."
       - docker push $ECR_REPO:latest
       - echo "Build complete. Docker image pushed to ECR."
-      
 
 artifacts:
   files:
