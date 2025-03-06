@@ -3,35 +3,28 @@ version: 0.2
 env:
   variables:
     AWS_REGION: "us-east-1"
-    ECR_REPO: "654654199927.dkr.ecr.us-east-1.amazonaws.com/repo/webapp"
+    ECR_REPO_URI: "654654199927.dkr.ecr.us-east-1.amazonaws.com/repo/webapp"
 
 phases:
-  install:
-    
-    commands:
-      - echo "Installing dependencies..."
-      - apt-get update && apt-get install -y awscli jq maven docker.io
-
   pre_build:
     commands:
-      - echo "Running Maven build..."
-      - mvn clean package
-      - echo "Logging in to AWS ECR..."
-      - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REPO
+      - echo "Logging into AWS ECR..."
+      - aws --version
+      - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REPO_URI
 
   build:
     commands:
-      - echo "Checking if target/demo.war exists before copying..."
-      - if [ ! -f target/demo.war ]; then cp target/*.war target/demo.war; fi
+      - echo "Building the application..."
+      - mvn package
       - echo "Building Docker image..."
-      - docker build -t demo-repo .
-      - docker tag demo-repo:latest $ECR_REPO:latest
+      - docker build -t webapp .
+      - docker tag webapp:latest $ECR_REPO_URI:latest
 
   post_build:
     commands:
       - echo "Pushing Docker image to ECR..."
-      - docker push $ECR_REPO:latest
-      - echo "Build complete. Docker image pushed to ECR."
+      - docker push $ECR_REPO_URI:latest
+      - echo "Build and push complete."
 
 artifacts:
   files:
