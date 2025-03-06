@@ -10,7 +10,7 @@ phases:
     
     commands:
       - echo "Installing dependencies..."
-      - yum install -y aws-cli jq maven
+      - apt-get update && apt-get install -y awscli jq maven docker.io
 
   pre_build:
     commands:
