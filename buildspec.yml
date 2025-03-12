@@ -10,23 +10,23 @@ phases:
     commands:
       - echo "Logging into AWS ECR..."
       - aws --version
-      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 339712952822.dkr.ecr.us-east-1.amazonaws.com
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 211125684911.dkr.ecr.us-east-1.amazonaws.com
 
   build:
     commands:
       - echo "Building the application..."
-      - mvn package
+      - mvn clean package
       - echo "Building Docker image..."
       - docker build -t repo/webapp .
       - echo "Listing Docker images after build..."
       - docker images   # Debugging step to check if image exists
       - echo "Tagging Docker image..."
-      - docker tag repo/webapp:latest 339712952822.dkr.ecr.us-east-1.amazonaws.com/repo/webapp:latest
+      - docker tag repo/webapp:latest 211125684911.dkr.ecr.us-east-1.amazonaws.com/repo/webapp:latest
 
   post_build:
     commands:
       - echo "Pushing Docker image to ECR..."
-      - docker push 339712952822.dkr.ecr.us-east-1.amazonaws.com/repo/webapp:latest
+      - docker push 211125684911.dkr.ecr.us-east-1.amazonaws.com/repo/webapp:latest
       - echo "Build and push complete."
       - echo '[{"name":"webapp","imageUri":"767397786711.dkr.ecr.us-east-1.amazonaws.com/repo/webapp:latest"}]' > imagedefinitions.json
 
