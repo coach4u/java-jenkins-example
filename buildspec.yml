@@ -10,7 +10,7 @@ phases:
     commands:
       - echo "Logging into AWS ECR..."
       - aws --version
-      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 058264076061.dkr.ecr.us-east-1.amazonaws.com
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 767397692469.dkr.ecr.us-east-1.amazonaws.com
 
   build:
     commands:
@@ -21,14 +21,14 @@ phases:
       - echo "Listing Docker images after build..."
       - docker images   # Debugging step to check if image exists
       - echo "Tagging Docker image..."
-      - docker tag repo/webapp:latest 058264076061.dkr.ecr.us-east-1.amazonaws.com/repo/webapp:latest
+      - docker tag repo/webapp:latest 767397692469.dkr.ecr.us-east-1.amazonaws.com/repo/webapp:latest
 
   post_build:
     commands:
       - echo "Pushing Docker image to ECR..."
-      - docker push 058264076061.dkr.ecr.us-east-1.amazonaws.com/repo/webapp:latest
+      - docker push 767397692469.dkr.ecr.us-east-1.amazonaws.com/repo/webapp:latest
       - echo "Build and push complete."
-      - echo '[{"name":"webapp","imageUri":"058264076061.dkr.ecr.us-east-1.amazonaws.com/repo/webapp:latest"}]' > imagedefinitions.json
+      - echo '[{"name":"webapp","imageUri":"767397692469.dkr.ecr.us-east-1.amazonaws.com/repo/webapp:latest"}]' > imagedefinitions.json
 
 
 artifacts:
