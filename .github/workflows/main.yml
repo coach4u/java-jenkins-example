@@ -1,0 +1,64 @@
+name: github actions
+on: push 
+jobs:
+ building:
+   runs-on: ubuntu-latest
+   steps:
+   - name: code checkout
+     uses: actions/checkout@v4
+
+   - name: Setup Java 11
+     uses: actions/setup-java@v3
+     with:
+        distribution: 'temurin'
+        java-version: '11'
+   
+   - name: Build with Maven
+     run: mvn clean package -DskipTests
+
+   - name: Upload artifact
+     uses: actions/upload-artifact@v3
+     with:
+       name: application-war
+       path: target/*.war
+
+   - name: Configure AWS credentials
+     uses: aws-actions/configure-aws-credentials@v2
+     with:
+       aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+       aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+       aws-region: us-east-1  
+   
+   - name: Deploy war to S3
+     run: aws s3 cp target/*.war s3://github-bucket09876/ --region us-east-1
+     
+   - name: Log in to Amazon ECR
+     run: |
+      aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 637423287485.dkr.ecr.us-east-1.amazonaws.com
+
+   - name: Build Docker image
+     run: docker build -t repo/testapp .
+
+   - name: Tag Docker image
+     run: docker tag repo/testapp:latest 637423287485.dkr.ecr.us-east-1.amazonaws.com/repo/testapp:latest
+
+   - name: Push Docker image to ECR
+     run: docker push 637423287485.dkr.ecr.us-east-1.amazonaws.com/repo/testapp:latest
+   
+    # Authenticate kubectl with EKS
+   - name: Setup kubectl for EKS
+     run: |
+        aws eks --region us-east-1 update-kubeconfig --name demo-eks
+
+    # Deploy to EKS
+   - name: Deploy to EKS
+     run: |
+        kubectl apply -f deployment.yml
+   
+        
+
+     
+
+     
+     
+  

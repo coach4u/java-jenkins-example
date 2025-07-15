@@ -1,0 +1,37 @@
+version: 0.2
+
+env:
+  variables:
+    AWS_REGION: "us-east-1"
+    #ECR_REPO_URI: "654654199927.dkr.ecr.us-east-1.amazonaws.com/repo/webapp"
+
+phases:
+  pre_build:
+    commands:
+      - echo "Logging into AWS ECR..."
+      - aws --version
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 767397692469.dkr.ecr.us-east-1.amazonaws.com
+
+  build:
+    commands:
+      - echo "Building the application..."
+      - mvn clean package
+      - echo "Building Docker image..."
+      - docker build -t repo/webapp .
+      - echo "Listing Docker images after build..."
+      - docker images   # Debugging step to check if image exists
+      - echo "Tagging Docker image..."
+      - docker tag repo/webapp:latest 767397692469.dkr.ecr.us-east-1.amazonaws.com/repo/webapp:latest
+
+  post_build:
+    commands:
+      - echo "Pushing Docker image to ECR..."
+      - docker push 767397692469.dkr.ecr.us-east-1.amazonaws.com/repo/webapp:latest
+      - echo "Build and push complete."
+      - echo '[{"name":"webapp","imageUri":"767397692469.dkr.ecr.us-east-1.amazonaws.com/repo/webapp:latest"}]' > imagedefinitions.json
+
+
+artifacts:
+  files:
+   # - '**/*'
+   - imagedefinitions.json

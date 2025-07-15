@@ -1,0 +1,46 @@
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  buildDir: '$(Build.ArtifactStagingDirectory)'
+
+steps:
+# Step 1: Build and Package with Maven
+- task: Maven@3
+  displayName: 'Build and Package with Maven'
+  inputs:
+    mavenPomFile: 'pom.xml'
+    mavenOptions: '-Xmx3072m'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.8'
+    jdkArchitectureOption: 'x64'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    goals: 'package'
+
+# Step 2: Debug - List Target Directory
+- script: ls -al $(System.DefaultWorkingDirectory)/target
+  displayName: 'List Files in Target Directory'
+
+# Step 3: Copy Build Artifact to Staging Directory
+- task: CopyFiles@2
+  displayName: 'Copy Build Artifact to Staging Directory'
+  inputs:
+    SourceFolder: '$(System.DefaultWorkingDirectory)/target'
+    Contents: '*.jar' # Use '*.war' if applicable
+    TargetFolder: '$(buildDir)'
+
+# Step 4: Debug - List Staging Directory
+- script: ls -al $(buildDir)
+  displayName: 'List Files in Staging Directory'
+
+# Step 5: Publish Artifact to Azure DevOps
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact to Azure DevOps'
+  inputs:
+    PathtoPublish: '$(buildDir)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
