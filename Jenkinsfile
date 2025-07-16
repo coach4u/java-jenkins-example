@@ -4,6 +4,10 @@ pipeline {
 
     environment {
         SONARQUBE_ENV = 'sonar' 
+        ECR_REGISTRY = '851725450272.dkr.ecr.us-east-1.amazonaws.com'
+        ECR_REPO = 'dev/webapp'
+        AWS_REGION = 'us-east-1'
+        IMAGE_TAG = '${env.BUILD_ID}'
     }
     
     stages {
@@ -45,7 +49,11 @@ pipeline {
         }
     }
 }
-
+ stage('Docker Build') {
+            steps {
+                sh "docker build -t ${ECR_REPO}:${IMAGE_TAG} ."
+            }
+        }
  /*   environment {
         AWS_REGION = 'us-east-1' 
         AWS_CREDENTIALS_ID = 'awscreds' 
