@@ -7,7 +7,7 @@ pipeline {
         ECR_REGISTRY = '730335621500.dkr.ecr.us-east-1.amazonaws.com'
         ECR_REPO = 'dev/webapp'
         AWS_REGION = 'us-east-1'
-        IMAGE_TAG = '${env.BUILD_ID}'
+        IMAGE_TAG = "${BUILD_ID}"
     }
     
     stages {
