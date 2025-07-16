@@ -96,7 +96,7 @@ pipeline {
             steps {
                 sh 'kubectl apply -f web.yml --kubeconfig /tmp/config'
             }
->>>>>>> master
+
         }
     }
 }
