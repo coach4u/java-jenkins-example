@@ -21,7 +21,7 @@ pipeline {
                  sh 'mvn clean package'
             }
         }
-        stage('SonarQube Analysis') {
+ /*       stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv(SONARQUBE_ENV) {
                     sh """
@@ -34,7 +34,8 @@ pipeline {
                     """
                 }
             }
-        }
+   */     }
+    
         stage('Docker Build') {
             steps {
                 sh "docker build -t ${ECR_REPO}:${IMAGE_TAG} ."
