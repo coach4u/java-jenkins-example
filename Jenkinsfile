@@ -21,14 +21,12 @@ pipeline {
             steps {
                 withSonarQubeEnv(SONARQUBE_ENV) {
                     sh """
-                    mvn clean verify sonar:sonar \
-                        -Dmaven.test.skip=true \
-                        -Dmaven.test.failure.ignore=true \
-                        -Dsonar.host.url=http://13.222.59.118:9000/projects \
+                    mvn  verify sonar:sonar \
+                        -Dsonar.host.url=http://13.222.59.118:9000 \
                         -Dsonar.projectName=java-jenkins-example \
                         -Dsonar.projectKey=java-jenkins-example \
                         -Dsonar.projectVersion=1.0 \
-                        -Dsonar.exclusions=**/*.ts
+                        
                     """
                 }
             }
