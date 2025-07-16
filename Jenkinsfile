@@ -44,6 +44,9 @@ pipeline {
         }
         always {
             cleanWs()  // Clean up the workspace after the build
+        }
+    }
+}
 
  /*   environment {
         AWS_REGION = 'us-east-1' 
