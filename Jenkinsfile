@@ -22,7 +22,7 @@ pipeline {
                 withSonarQubeEnv(SONARQUBE_ENV) {
                     sh """
                     mvn  verify sonar:sonar \
-                        -Dsonar.host.url=http://13.222.59.118:9000 \
+                        -Dsonar.host.url=hhttps://851725450272.realhandsonlabs.net:9000 \
                         -Dsonar.projectName=java-jenkins-example \
                         -Dsonar.projectKey=java-jenkins-example \
                         -Dsonar.projectVersion=1.0 \
