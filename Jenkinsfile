@@ -4,7 +4,7 @@ pipeline {
 
     environment {
         SONARQUBE_ENV = 'sonar' 
-        ECR_REGISTRY = '851725450272.dkr.ecr.us-east-1.amazonaws.com'
+        ECR_REGISTRY = '730335621500.dkr.ecr.us-east-1.amazonaws.com'
         ECR_REPO = 'dev/webapp'
         AWS_REGION = 'us-east-1'
         IMAGE_TAG = '${env.BUILD_ID}'
@@ -21,7 +21,8 @@ pipeline {
                  sh 'mvn clean package'
             }
         }
- /*       stage('SonarQube Analysis') {
+ /*   
+         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv(SONARQUBE_ENV) {
                     sh """
@@ -34,7 +35,8 @@ pipeline {
                     """
                 }
             }
-   */     }
+   }
+      */  
     
         stage('Docker Build') {
             steps {
