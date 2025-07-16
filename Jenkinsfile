@@ -1,6 +1,6 @@
 pipeline {
     agent any
-<<<<<<< HEAD
+
 
     environment {
         SONARQUBE_ENV = 'sonar' 
@@ -44,7 +44,7 @@ pipeline {
         }
         always {
             cleanWs()  // Clean up the workspace after the build
-=======
+
  /*   environment {
         AWS_REGION = 'us-east-1' 
         AWS_CREDENTIALS_ID = 'awscreds' 
