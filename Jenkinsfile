@@ -35,7 +35,13 @@ pipeline {
                 }
             }
         }
+        stage('Docker Build') {
+            steps {
+                sh "docker build -t ${ECR_REPO}:${IMAGE_TAG} ."
+            }
+        }
     }
+
     
     post {
         success {
@@ -49,12 +55,7 @@ pipeline {
         }
     }
 }
- stage('Docker Build') {
-            steps {
-                sh "docker build -t ${ECR_REPO}:${IMAGE_TAG} ."
-            }
-        }
-}
+
  /*   environment {
         AWS_REGION = 'us-east-1' 
         AWS_CREDENTIALS_ID = 'awscreds' 
