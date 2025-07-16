@@ -9,12 +9,12 @@ pipeline {
     stages {
         stage('Clone repo') {
             steps {
-                git branch: 'sonar', url: 'https://github.com/coach4u/java-jenkins-example.git'
+                git branch: 'master', url: 'https://github.com/coach4u/java-jenkins-example.git'
             }
         }
         stage('Build') {
             steps {
-                sh 'mvn clean install -DskipTests'
+                 sh 'mvn clean package'
             }
         }
         stage('SonarQube Analysis') {
@@ -24,9 +24,9 @@ pipeline {
                     mvn clean verify sonar:sonar \
                         -Dmaven.test.skip=true \
                         -Dmaven.test.failure.ignore=true \
-                        -Dsonar.host.url=http://44.212.8.139:9000/ \
-                        -Dsonar.projectName=webgoat \
-                        -Dsonar.projectKey=webgoat \
+                        -Dsonar.host.url=http://13.222.59.118:9000/projects \
+                        -Dsonar.projectName=java-jenkins-example \
+                        -Dsonar.projectKey=java-jenkins-example \
                         -Dsonar.projectVersion=1.0 \
                         -Dsonar.exclusions=**/*.ts
                     """
@@ -45,7 +45,7 @@ pipeline {
         always {
             cleanWs()  // Clean up the workspace after the build
 =======
-    environment {
+ /*   environment {
         AWS_REGION = 'us-east-1' 
         AWS_CREDENTIALS_ID = 'awscreds' 
         EKS_CLUSTER_NAME = 'demo-eks'
@@ -76,7 +76,7 @@ pipeline {
             }
         }
 
-/*        stage('Update kubeconfig for EKS') {
+       stage('Update kubeconfig for EKS') {
             steps { 
              withAWS(credentials: "${AWS_CREDENTIALS_ID}", region: "${AWS_REGION}") {
                     sh '''
@@ -89,7 +89,7 @@ pipeline {
             }
         }
     
-*/
+
 
         stage('Deploy to Kubernetes') {
             steps {
@@ -99,3 +99,4 @@ pipeline {
         }
     }
 }
+*/
