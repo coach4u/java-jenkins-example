@@ -54,6 +54,7 @@ pipeline {
                 sh "docker build -t ${ECR_REPO}:${IMAGE_TAG} ."
             }
         }
+}
  /*   environment {
         AWS_REGION = 'us-east-1' 
         AWS_CREDENTIALS_ID = 'awscreds' 
