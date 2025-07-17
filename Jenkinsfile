@@ -60,8 +60,18 @@ pipeline {
             }
         }
     }
+
+
+ stage('Trivy Scan') {
+    steps {
+        sh '''
+        curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
+        trivy image ${ECR_REGISTRY}/${ECR_REPO}:${IMAGE_TAG}
+        '''
+    }
 }
-    
+}    
+
     post {
         success {
             echo 'Build and analysis completed successfully.'
