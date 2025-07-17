@@ -49,15 +49,18 @@ pipeline {
                 }
             }
         }
+     }
 
         stage('Push to ECR') {
             steps {
-                script {
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-cred']]) {
+                    script {
                     sh "docker push  ${ECR_REGISTRY}/${ECR_REPO}:${IMAGE_TAG} "
                 }
             }
         }
     }
+}
     
     post {
         success {
