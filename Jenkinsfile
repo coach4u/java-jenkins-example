@@ -53,7 +53,7 @@ pipeline {
 
         stage('Push to ECR') {
             steps {
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-cred']]) {
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws_cred']]) {
                     script {
                     sh "docker push  ${ECR_REGISTRY}/${ECR_REPO}:${IMAGE_TAG} "
                 }
