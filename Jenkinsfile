@@ -4,7 +4,7 @@ pipeline {
 
     environment {
         SONARQUBE_ENV = 'sonar' 
-        ECR_REGISTRY = '730335621500.dkr.ecr.us-east-1.amazonaws.com'
+        ECR_REGISTRY = '533267095186.dkr.ecr.us-east-1.amazonaws.com/'
         ECR_REPO = 'dev/webapp'
         AWS_REGION = 'us-east-1'
         IMAGE_TAG = "${BUILD_ID}"
@@ -40,11 +40,23 @@ pipeline {
     
         stage('Docker Build') {
             steps {
-                sh "docker build -t ${ECR_REPO}:${IMAGE_TAG} ."
+                script {
+                    sh """
+                        aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${ECR_REGISTRY}
+                        docker build -t ${FULL_IMAGE_NAME} .
+                    """
+                }
+            }
+        }
+
+        stage('Push to ECR') {
+            steps {
+                script {
+                    sh "docker push ${FULL_IMAGE_NAME}"
+                }
             }
         }
     }
-
     
     post {
         success {
