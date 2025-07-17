@@ -43,7 +43,7 @@ pipeline {
                 script {
                     sh """
                         aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${ECR_REGISTRY}
-                        docker build -t ${FULL_IMAGE_NAME} .
+                        docker build -t  ${ECR_REGISTRY}/${ECR_REPO}:${IMAGE_TAG}  .
                     """
                 }
             }
@@ -52,7 +52,7 @@ pipeline {
         stage('Push to ECR') {
             steps {
                 script {
-                    sh "docker push ${FULL_IMAGE_NAME}"
+                    sh "docker push  ${ECR_REGISTRY}/${ECR_REPO}:${IMAGE_TAG} "
                 }
             }
         }
