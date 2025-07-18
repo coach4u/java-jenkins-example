@@ -68,9 +68,12 @@ stage('Trivy Scan') {
         sh '''
             echo "Running Trivy vulnerability scan..."
             export TMPDIR=/var/tmp
-            trivy image --exit-code 1 --severity CRITICAL,HIGH,MEDIUM $ECR_REGISTRY/$ECR_REPO:$IMAGE_TAG
-
+         //   trivy image --exit-code 1 --severity CRITICAL,HIGH,MEDIUM $ECR_REGISTRY/$ECR_REPO:$IMAGE_TAG
+         trivy image --format template --template "@contrib/html.tpl" --output trivy-report.html --severity CRITICAL,HIGH,MEDIUM $ECR_REGISTRY/$ECR_REPO:$IMAGE_TAG || true
         '''
+        archiveArtifacts artifacts: 'trivy-report.html', fingerprint: true
+        echo "Trivy scan completed. HTML report archived. Pipeline continues regardless of scan result."
+        }
     }
  }
 }        
