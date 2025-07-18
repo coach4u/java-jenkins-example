@@ -73,11 +73,11 @@ stage('Trivy Scan') {
             ${ECR_REGISTRY}/${ECR_REPO}:${IMAGE_TAG} || true 
         '''
          archiveArtifacts artifacts: 'trivy-report.html', fingerprint: true
-   }
          echo "Trivy scan completed. HTML report archived. Pipeline continues regardless of scan result."
             }
         }
-    }      
+    }  
+
 
     post {
         success {
