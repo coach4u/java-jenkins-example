@@ -68,6 +68,7 @@ stage('Trivy Scan') {
         sh '''
             echo "Running Trivy vulnerability scan..."
             export TMPDIR=/var/tmp
+            curl -sL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/html.tpl -o html.tpl
          #   trivy image --exit-code 1 --severity CRITICAL,HIGH,MEDIUM $ECR_REGISTRY/$ECR_REPO:$IMAGE_TAG
             trivy image --format template --template "@contrib/html.tpl" --output trivy-report.html --severity CRITICAL,HIGH,MEDIUM \
             ${ECR_REGISTRY}/${ECR_REPO}:${IMAGE_TAG} || true 
