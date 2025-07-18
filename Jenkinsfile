@@ -67,7 +67,8 @@ stage('Trivy Scan') {
     steps {
         sh '''
             echo "Running Trivy vulnerability scan..."
-            trivy image --exit-code 1 --severity CRITICAL,HIGH,MEDIUM  992382635843.dkr.ecr.us-east-1.amazonaws.com/dev/webapp:${BUILD_ID}
+            trivy image --exit-code 1 --severity CRITICAL,HIGH,MEDIUM $ECR_REGISTRY/$ECR_REPO:$IMAGE_TAG
+
         '''
     }
  }
