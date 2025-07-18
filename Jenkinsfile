@@ -70,7 +70,11 @@ stage('Trivy Scan') {
             trivy image --exit-code 1 --severity CRITICAL,HIGH.MEDIUM  992382635843.dkr.ecr.us-east-1.amazonaws.com/dev/webapp:${BUILD_ID}
         '''
     }
-}
+ }
+}        
+
+
+
   
 
     post {
