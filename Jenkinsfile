@@ -62,15 +62,16 @@ pipeline {
     }
 
 
- stage('Trivy Scan') {
+
+stage('Trivy Scan') {
     steps {
         sh '''
-        curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
-        trivy image ${ECR_REGISTRY}/${ECR_REPO}:${IMAGE_TAG}
+            echo "Running Trivy vulnerability scan..."
+            trivy image --exit-code 1 --severity CRITICAL,HIGH.MEDIUM  992382635843.dkr.ecr.us-east-1.amazonaws.com/dev/webapp:${BUILD_ID}
         '''
     }
 }
-}    
+  
 
     post {
         success {
