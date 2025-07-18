@@ -67,6 +67,7 @@ stage('Trivy Scan') {
     steps {
         sh '''
             echo "Running Trivy vulnerability scan..."
+            export TMPDIR=/var/tmp
             trivy image --exit-code 1 --severity CRITICAL,HIGH,MEDIUM $ECR_REGISTRY/$ECR_REPO:$IMAGE_TAG
 
         '''
