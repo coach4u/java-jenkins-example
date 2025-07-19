@@ -78,6 +78,17 @@ stage('Trivy Scan') {
             }
         }
     }  
+      stage('Generate SBOM') {
+            steps {
+                sh '''
+                    echo "Generating SBOM using Trivy..."
+                    mkdir -p sbom
+                    trivy image --format cyclonedx --output sbom/sbom.cdx.json ${ECR_REGISTRY}/${ECR_REPO}:${IMAGE_TAG}
+                '''
+                archiveArtifacts artifacts: 'sbom/sbom.cdx.json', fingerprint: true
+                echo "SBOM generated and archived."
+            }
+        }
 
 
     post {
