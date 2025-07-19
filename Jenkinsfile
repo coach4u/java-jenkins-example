@@ -77,7 +77,7 @@ stage('Trivy Scan') {
          echo "Trivy scan completed. HTML report archived. Pipeline continues regardless of scan result."
             }
         }
-    }  
+    
       stage('Generate SBOM') {
             steps {
                 sh '''
@@ -89,6 +89,7 @@ stage('Trivy Scan') {
                 echo "SBOM generated and archived."
             }
         }
+    }
 
 
     post {
