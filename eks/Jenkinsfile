@@ -16,7 +16,7 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-       git branch: 'main', url: 'https://github.com/coach4u/java-jenkins-example.git'
+       git branch: 'master', url: 'https://github.com/coach4u/java-jenkins-example.git'
        sh 'echo "Listing files under eks/backend:" && ls -la eks/backend'
       }
     }
