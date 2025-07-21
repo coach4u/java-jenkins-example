@@ -93,6 +93,23 @@ stage('Trivy Scan') {
     }
 
 */ 
+    stage('Helm Deploy to EKS') {
+            steps {
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws_cred']]) {
+                    script {
+                        sh """
+                        aws eks update-kubeconfig --region ${AWS_REGION} --name my-eks-cluster
+
+                        helm upgrade --install webapp ./charts/webapp \
+                          --set image.repository=${ECR_REGISTRY}/${ECR_REPO} \
+                          --set image.tag=${IMAGE_TAG} \
+                          --namespace default \
+                          --create-namespace
+                        """
+                    }
+                }
+            }
+        }
     post {
         success {
             echo 'Build and analysis completed successfully.'
