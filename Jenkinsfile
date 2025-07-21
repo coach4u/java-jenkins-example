@@ -60,7 +60,7 @@ pipeline {
             }
         }
      }
-    }
+    
 
 
 /*
@@ -110,6 +110,7 @@ stage('Trivy Scan') {
                 }
             }
         }
+    } 
     post {
         success {
             echo 'Build and analysis completed successfully.'
