@@ -97,16 +97,14 @@ stage('Trivy Scan') {
             steps {
                 withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws_cred']]) {
                     script {
-                        sh """
-                        aws eks update-kubeconfig --region ${AWS_REGION} --name my-eks-cluster
-                        export KUBECONFIG=/var/lib/jenkins/.kube/config
-                        
-                        
-                        helm upgrade --install webapp ./charts/webapp \
-                          --set image.repository=${ECR_REGISTRY}/${ECR_REPO} \
-                          --set image.tag=${IMAGE_TAG} \
-                          --namespace default \
-                          --create-namespace
+                      sh """
+                        export AWS_REGION=${AWS_REGION}
+                        export KUBECONFIG=/tmp/kubeconfig
+
+                        aws eks update-kubeconfig --region ${AWS_REGION} --name my-eks-cluster --kubeconfig \$KUBECONFIG
+
+                       helm upgrade --install webapp ./charts/webapp --set image.repository=${ECR_REGISTRY}/${ECR_REPO} \
+                       --set image.tag=${IMAGE_TAG} --kubeconfig \$KUBECONFIG --namespace default --create-namespace
                         """
                     }
                 }
