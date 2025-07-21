@@ -100,6 +100,8 @@ stage('Trivy Scan') {
                         sh """
                         aws eks update-kubeconfig --region ${AWS_REGION} --name my-eks-cluster
                         export KUBECONFIG=/var/lib/jenkins/.kube/config
+                        TOKEN=$(aws eks get-token --region us-east-1 --cluster-name my-eks-cluster --output text --query 'status.token')
+                        kubectl config set-credentials arn:aws:eks:us-east-1:590183867409:cluster/my-eks-cluster --token="$TOKEN"
                         kubectl config current-context
                         helm upgrade --install webapp ./charts/webapp \
                           --set image.repository=${ECR_REGISTRY}/${ECR_REPO} \
