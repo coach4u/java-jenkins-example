@@ -33,10 +33,10 @@ pipeline {
             terraform apply -auto-approve
           '''
         }
-      }
-      }
-   }
-
+       }
+     }
+    }
+  }
     stage('Init Infra with Remote Backend') {
       steps {
         dir("${MAIN_DIR}") {
