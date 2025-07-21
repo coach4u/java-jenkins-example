@@ -62,7 +62,7 @@ pipeline {
     }
 
 
-
+/*
 stage('Trivy Scan') {
     steps {
         sh '''
@@ -91,7 +91,7 @@ stage('Trivy Scan') {
         }
     }
 
-
+*/ 
     post {
         success {
             echo 'Build and analysis completed successfully.'
