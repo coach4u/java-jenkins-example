@@ -99,7 +99,7 @@ stage('Trivy Scan') {
                     script {
                         sh """
                         aws eks update-kubeconfig --region ${AWS_REGION} --name my-eks-cluster
-
+                        kubectl config current-context
                         helm upgrade --install webapp ./charts/webapp \
                           --set image.repository=${ECR_REGISTRY}/${ECR_REPO} \
                           --set image.tag=${IMAGE_TAG} \
