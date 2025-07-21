@@ -23,7 +23,9 @@ pipeline {
 
     stage('Create Backend') {
       steps {
-        dir("${BACKEND_DIR}") {
+        script {
+            withAWS(credentialsId: 'aws-credentials-id', region: 'us-east-1') {
+            dir("${BACKEND_DIR}") {
           sh '''
             pwd
             ls -l
@@ -32,7 +34,8 @@ pipeline {
           '''
         }
       }
-    }
+      }
+   }
 
     stage('Init Infra with Remote Backend') {
       steps {
