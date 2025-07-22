@@ -95,7 +95,7 @@ stage('Trivy Scan') {
 */ 
     stage('Helm Deploy to EKS') {
             steps {
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws_cred']]) {
+                withCredentials([file(credentialsId: 'eks-kubeconfig1', variable: 'KUBECONFIG_FILE')]) {
                     script {
                       sh """
                         export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
