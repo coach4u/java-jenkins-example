@@ -104,7 +104,7 @@ stage('Trivy Scan') {
         aws eks update-kubeconfig --region $AWS_REGION --name my-eks-cluster --kubeconfig $KUBECONFIG
         kubectl get nodes --kubeconfig $KUBECONFIG
         ls -l
-        helm upgrade --install webapp webapps \
+        helm upgrade --install webapp . \
           --set image.repository=730335621500.dkr.ecr.us-east-1.amazonaws.com/dev/webapp \
           --set image.tag=${BUILD_ID} \
           --kubeconfig $KUBECONFIG \
