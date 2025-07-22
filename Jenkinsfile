@@ -95,8 +95,7 @@ stage('Trivy Scan') {
 */ 
     stage('Helm Deploy to EKS') {
             steps {
-                steps {
-        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws_cred']]) {
+            withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws_cred']]) {
             script {
                 sh '''
                     export AWS_REGION=us-east-1
@@ -115,7 +114,7 @@ stage('Trivy Scan') {
             }
         }
     } 
-    }
+    
     post {
         success {
             echo 'Build and analysis completed successfully.'
