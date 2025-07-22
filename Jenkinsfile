@@ -95,17 +95,21 @@ stage('Trivy Scan') {
 */ 
     stage('Helm Deploy to EKS') {
             steps {
-                withCredentials([file(credentialsId: 'eks-kubeconfig', variable: 'KUBECONFIG_FILE')]) {
-                    script {
-                      sh """
-                       export AWS_REGION=${AWS_REGION}
-                       export KUBECONFIG=${KUBECONFIG_FILE}
+                steps {
+        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws_cred']]) {
+            script {
+                sh '''
+                    export AWS_REGION=us-east-1
+                    export KUBECONFIG=/tmp/kubeconfig
 
-                        aws eks update-kubeconfig --region ${AWS_REGION} --name my-eks-cluster --kubeconfig \$KUBECONFIG
+                    aws eks update-kubeconfig --region $AWS_REGION --name my-eks-cluster --kubeconfig $KUBECONFIG
 
-                       helm upgrade --install webapp ./charts/webapp --set image.repository=${ECR_REGISTRY}/${ECR_REPO} \
-                       --set image.tag=${IMAGE_TAG} --kubeconfig \$KUBECONFIG --namespace default --create-namespace
-                        """
+                    helm upgrade --install webapp ./charts/webapp \
+                      --set image.repository=730335621500.dkr.ecr.us-east-1.amazonaws.com/dev/webapp \
+                      --set image.tag=$BUILD_ID \
+                      --kubeconfig $KUBECONFIG \
+                      --namespace default --create-namespace
+                '''
                     }
                 }
             }
