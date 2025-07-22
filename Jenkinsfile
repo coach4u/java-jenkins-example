@@ -98,11 +98,8 @@ stage('Trivy Scan') {
                 withCredentials([file(credentialsId: 'eks-kubeconfig', variable: 'KUBECONFIG_FILE')]) {
                     script {
                       sh """
-                        export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
-                        export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
-                        export AWS_REGION=${AWS_REGION}
-                        export AWS_REGION=${AWS_REGION}
-                        export KUBECONFIG=/tmp/kubeconfig
+                       export AWS_REGION=${AWS_REGION}
+                       export KUBECONFIG=${KUBECONFIG_FILE}
 
                         aws eks update-kubeconfig --region ${AWS_REGION} --name my-eks-cluster --kubeconfig \$KUBECONFIG
 
