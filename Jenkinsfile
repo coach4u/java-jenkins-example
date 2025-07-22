@@ -107,7 +107,7 @@ stage('Trivy Scan') {
         kubectl get nodes --kubeconfig $KUBECONFIG
 
         # Deploy with Helm
-        helm upgrade --install webapp ./charts/webapp \
+        helm upgrade --install webapp ./java-jenkins-example/webapps \
           --set image.repository=730335621500.dkr.ecr.us-east-1.amazonaws.com/dev/webapp \
           --set image.tag=${BUILD_ID} \
           --kubeconfig $KUBECONFIG \
