@@ -96,17 +96,13 @@ stage('Trivy Scan') {
     stage('Helm Deploy to EKS') {
     steps {
      script {
-      sh '''
+      dir('java-jenkins-example')
+       sh '''
         export AWS_REGION=us-east-1
         export KUBECONFIG=/tmp/kubeconfig
-
-        # Update kubeconfig with IAM role
+        
         aws eks update-kubeconfig --region $AWS_REGION --name my-eks-cluster --kubeconfig $KUBECONFIG
-
-        # OPTIONAL: Debug to verify kubeconfig
         kubectl get nodes --kubeconfig $KUBECONFIG
-
-        # Deploy with Helm
         helm upgrade --install webapp ./java-jenkins-example/webapps \
           --set image.repository=730335621500.dkr.ecr.us-east-1.amazonaws.com/dev/webapp \
           --set image.tag=${BUILD_ID} \
