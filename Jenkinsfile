@@ -96,7 +96,7 @@ stage('Trivy Scan') {
     stage('Helm Deploy to EKS') {
     steps {
      script {
-      dir('java-jenkins-example'){
+     // dir('java-jenkins-example'){
        sh '''
         export AWS_REGION=us-east-1
          export KUBECONFIG=$PWD/kubeconfig
