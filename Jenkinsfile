@@ -115,7 +115,7 @@ stage('Trivy Scan') {
                 }
             }
         }
-    }
+    //}
     
     
     post {
