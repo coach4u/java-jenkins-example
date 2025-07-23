@@ -99,7 +99,7 @@ stage('Trivy Scan') {
       dir('java-jenkins-example'){
        sh '''
         export AWS_REGION=us-east-1
-        export KUBECONFIG=/tmp/kubeconfig
+         export KUBECONFIG=$PWD/kubeconfig
         
         aws eks update-kubeconfig --region $AWS_REGION --name my-eks-cluster --kubeconfig $KUBECONFIG
         kubectl get nodes --kubeconfig $KUBECONFIG
