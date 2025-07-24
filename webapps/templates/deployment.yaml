@@ -14,6 +14,7 @@ spec:
       labels:
         app: webapp
     spec:
+      serviceAccountName: {{ include "webapps.serviceAccountName" . }}
       containers:
       - name: webapp
         image: "{{.Values.image.repository}}:{{.Values.image.tag}}"
