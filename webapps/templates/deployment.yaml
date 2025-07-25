@@ -14,7 +14,7 @@ spec:
       labels:
         app: webapp
     spec:
-      serviceAccountName: {{ include "webapps.serviceAccountName" . }}
+      serviceAccountName: eks-irsa-role-ecr
       containers:
       - name: webapp
         image: "{{.Values.image.repository}}:{{.Values.image.tag}}"
