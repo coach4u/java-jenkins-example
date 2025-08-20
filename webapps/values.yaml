@@ -21,11 +21,11 @@ serviceAccount:
   # Automatically mount a ServiceAccount's API credentials?
   automount: true
   # Annotations to add to the service account
-  annotations: 
-   eks.amazonaws.com/role-arn: arn:aws:iam::637423460436:role/eks-irsa-role-ecr
+  #annotations: 
+  # eks.amazonaws.com/role-arn: arn:aws:iam::637423460436:role/eks-irsa-role-ecr
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
-  name: "eks-irsa-role-ecr"
+#  name: "eks-irsa-role-ecr"
 
 podAnnotations: {}
 podLabels: {}
