@@ -13,8 +13,8 @@ spec:
     targetPort: 8080
   type: LoadBalancer
   selector:
-    app: webapp
-*/
+    app: webapp */
+
 
 apiVersion: v1
 kind: Service
