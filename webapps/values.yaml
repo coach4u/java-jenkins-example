@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: 471112919332.dkr.ecr.us-east-1.amazonaws.com/webapp
+  repository: 992382555771.dkr.ecr.us-east-1.amazonaws.com/dev/webapp
  # repository: coachrhca/webapps
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
