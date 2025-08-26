@@ -4,7 +4,7 @@ metadata:
   name: webapp
   labels:
     app: webapp
-    k8s-app: webapp
+    
 spec:
   selector:
     app: webapp
