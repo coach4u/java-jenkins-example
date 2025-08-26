@@ -105,7 +105,7 @@ stage('Trivy Scan') {
         kubectl get nodes --kubeconfig $KUBECONFIG
         pwd
         ls -l
-        helm upgrade --install webapp ./webapps --set image.tag=${BUILD_ID} --kubeconfig $KUBECONFIG --namespace default
+        helm upgrade --install webapp ./webapps --set image.tag=${IMAGE_TAG} --kubeconfig $KUBECONFIG --namespace default
 
       '''
                     }
