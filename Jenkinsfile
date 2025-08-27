@@ -61,7 +61,25 @@ pipeline {
         }
  //    }
     
+stage('Update Helm Values for GitOps') {
+    steps {
+        script {
+            sh """
+            
+            sed -i 's/tag:.*/tag: "${IMAGE_TAG}"/' ./webapps/values.yaml
 
+           
+            git config --global user.email "coach.rhca@gmail.com"
+            git config --global user.name "kum"
+
+            # Commit and push back to repo
+            git add ./webapps/values.yaml
+            git commit -m "Update image tag to ${IMAGE_TAG} [ci skip]" || echo "No changes to commit"
+            git push origin master
+            """
+        }
+    }
+}
 
 /*
 stage('Trivy Scan') {
