@@ -61,7 +61,7 @@ pipeline {
         }
  //    }
     
-stage('Update Helm Values for GitOps') {
+stage('Update helm Values for gitOps') {
     steps {
         script {
             sh """
