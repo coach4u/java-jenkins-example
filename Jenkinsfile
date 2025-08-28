@@ -72,7 +72,7 @@ stage('Update helm Values for gitOps') {
                 git add ./webapps/values.yaml
                 git commit -m "Update image tag to 2 [ci skip]"
 
-                git push https://${GIT_USER}:${GIT_TOKEN}@github.com/your-org/your-repo.git master
+                git push https://${GIT_USER}:${GIT_TOKEN}@github.com/coach4u/java-jenkins-example.git master
             '''
         }
     }
