@@ -64,16 +64,14 @@ pipeline {
 stage('Update helm Values for gitOps') {
     steps {
         withCredentials([usernamePassword(credentialsId: 'github-credentials', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_TOKEN')]) {
-            sh '''
-                sed -i 's/tag:.*/tag: "2"/' ./webapps/values.yaml
-                git config --global user.email "coach.rhca@gmail.com"
-                git config --global user.name "kum"
-
-                git add ./webapps/values.yaml
-                git commit -m "Update image tag to 2 [ci skip]"
-
-                git push https://${GIT_USER}:${GIT_TOKEN}@github.com/coach4u/java-jenkins-example.git master
-            '''
+          sh """
+              sed -i 's/tag:.*/tag: "${IMAGE_TAG}"/' ./webapps/values.yaml
+              git config --global user.email "coach.rhca@gmail.com"
+              git config --global user.name "coach4u"
+              git add ./webapps/values.yaml
+              git commit -m "Update image tag to ${IMAGE_TAG} [ci skip]" || echo "No changes to commit"
+              git push https://${GIT_USER}:${GIT_TOKEN}@github.com/coach4u/java-jenkins-example.git master
+"""
         }
     }
 }
