@@ -70,7 +70,7 @@ stage('Update helm Values for gitOps') {
 
            
             git config --global user.email "coach.rhca@gmail.com"
-            git config --global user.name "kum"
+            git config --global user.name "coach4u"
 
             # Commit and push back to repo
             git add ./webapps/values.yaml
