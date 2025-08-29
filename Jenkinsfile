@@ -4,7 +4,7 @@ pipeline {
 
     environment {
         SONARQUBE_ENV = 'sonar' 
-        ECR_REGISTRY = '637423656705.dkr.ecr.us-east-1.amazonaws.com'
+        ECR_REGISTRY = '992382373034.dkr.ecr.us-east-1.amazonaws.com'
         ECR_REPO = 'dev/webapp'
         AWS_REGION = 'us-east-1'
         IMAGE_TAG = "${BUILD_ID}"
