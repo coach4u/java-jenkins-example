@@ -106,7 +106,9 @@ stage('Trivy Scan') {
     }
 
 */ 
-    stage('Helm Deploy to EKS') {
+
+/*   
+stage('Helm Deploy to EKS') {
     steps {
      script {
      // dir('java-jenkins-example'){
@@ -127,7 +129,7 @@ stage('Trivy Scan') {
         }
     //}
     
-    
+   */ 
     post {
         success {
             echo 'Build and analysis completed successfully.'
