@@ -70,7 +70,7 @@
             <h2>Registration Form</h2>
             <form action="">
                 <label for="first"
-                    >First Name:</label
+                    >First name:</label
                 >
                 <input
                     type="text"
@@ -80,7 +80,7 @@
                 />
  
                 <label for="last"
-                    >Last Name:</label
+                    >Last name:</label
                 >
                 <input
                     type="text"
