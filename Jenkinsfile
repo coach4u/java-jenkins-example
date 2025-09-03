@@ -73,8 +73,9 @@ stage('Update helm Values for gitOps') {
               git push https://${GIT_USER}:${GIT_TOKEN}@github.com/coach4u/java-jenkins-example.git master
 """
         }
-    }
-}
+     }
+   }
+ }
 
 /*
 stage('Trivy Scan') {
@@ -127,9 +128,9 @@ stage('Helm Deploy to EKS') {
                 }
             }
         }
-    //}
     
-   */ 
+    
+  
     post {
         success {
             echo 'Build and analysis completed successfully.'
@@ -142,8 +143,10 @@ stage('Helm Deploy to EKS') {
         }
     }
 }
-
- /*   environment {
+ */ 
+        
+ /*   
+ environment {
         AWS_REGION = 'us-east-1' 
         AWS_CREDENTIALS_ID = 'awscreds' 
         EKS_CLUSTER_NAME = 'demo-eks'
