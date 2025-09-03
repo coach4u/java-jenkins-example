@@ -75,7 +75,8 @@ stage('Update helm Values for gitOps') {
         }
      }
    }
- }
+  }
+}
 
 /*
 stage('Trivy Scan') {
