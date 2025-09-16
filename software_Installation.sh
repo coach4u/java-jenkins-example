@@ -12,7 +12,7 @@ chmod 700 get_helm.sh
 #Terraform Installation
 
 #https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli
-[root@ip-172-31-28-114 scripts]# more terraform.sh
+
 sudo dnf install -y dnf-plugins-core
 sudo dnf config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
 sudo dnf -y install terraform
