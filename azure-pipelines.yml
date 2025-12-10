@@ -2,10 +2,10 @@ trigger:
 - master
 
 pool:
- # vmimage: ubuntu-latest
    name: Default
 
 steps:
+# ------------------ Build with Maven ------------------
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
@@ -17,12 +17,23 @@ steps:
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
 
+# ------------------ Copy build output to artifact staging directory ------------------
+- task: CopyFiles@2
+  displayName: "Copy JAR/WAR files to Staging Directory"
+  inputs:
+    SourceFolder: '$(System.DefaultWorkingDirectory)'
+    Contents: '**/target/*.jar'   # or *.war depending on your project
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+# ------------------ List staging directory (debugging) ------------------
 - script: |
     echo "Contents of $(Build.ArtifactStagingDirectory):"
     ls -R $(Build.ArtifactStagingDirectory)
   displayName: 'List artifacts directory'
 
+# ------------------ Publish artifacts ------------------
 - task: PublishBuildArtifacts@1
+  displayName: 'Publish Build Artifacts'
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
