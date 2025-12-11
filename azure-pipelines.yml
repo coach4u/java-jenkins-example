@@ -38,3 +38,11 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
+
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'sc01'
+    appName: 'apacheweb01'
+    package: '$(Pipeline.Workspace)/drop/*.war'
+    runtimeStack: 'TOMCAT|8.5'
+
