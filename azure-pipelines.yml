@@ -22,7 +22,7 @@ steps:
   displayName: "Copy JAR/WAR files to Staging Directory"
   inputs:
     SourceFolder: '$(System.DefaultWorkingDirectory)'
-    Contents: '**/target/*.jar'   # or *.war depending on your project
+    Contents: '**/target/*.war'  
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
 # ------------------ List staging directory (debugging) ------------------
